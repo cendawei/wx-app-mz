@@ -7,7 +7,9 @@ Page({
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    isImage: false,
+    imageSrc: ''
   },
   //事件处理函数
   bindViewTap: function() {
@@ -49,6 +51,30 @@ Page({
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
+    })
+  },
+  formSubmit: function(e) {
+    const text = e.detail.value.content
+    if(!text) {
+      return;
+    }
+    const data = {
+      text,
+      expire: -1
+    }
+    this.setData({
+      isImage: true,
+      imageSrc: `http://app.cdroom.top/wx/mz/qrCode/qr?expire=${data['expire']}&text=${data['text']}`
+    })
+  },
+  previewQRCode() {
+    wx.previewImage({
+      urls: [this.data.imageSrc]
+    })
+  },
+  back2index() {
+    this.setData({
+      isImage: false
     })
   }
 })

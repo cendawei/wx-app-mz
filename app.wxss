@@ -8,3 +8,9 @@
   padding: 200rpx 0;
   box-sizing: border-box;
 } 
+.mt100 {
+  margin-top: 100rpx;
+}
+.mt50 {
+  margin-top: 50rpx;
+}

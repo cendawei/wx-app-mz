@@ -3,11 +3,38 @@
   <view class="userinfo">
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
     <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
+  <view class='section mt100' wx:if="{{isImage}}">
+    <image src="{{imageSrc}}" mode="widthFix" bindtap="previewQRCode"></image>
+    <view class='mt50'>
+      <button type='primary' class='submit-btn' bindtap='back2index'>返回</button>
+      <!-- <button form-type='reset' type='default'>清空</button> -->
+    </view>
+    <!-- <view style='text-align: center;'>
+      <view>
+        <text>屏幕快照保存二维码打开</text>
+      </view>
+      <view>
+        <text>可以看到您的码字</text>
+      </view>
+    </view> -->
   </view>
+  <view class='section mt100' wx:else>
+    <form bindsubmit='formSubmit'>
+      <view>
+        <textarea placeholder='输入文本，可以码字哦！' style='border: 8rpx double grey; padding: 20rpx;' maxlength='200' name='content'></textarea>
+      </view>
+      <view class='mt50'>
+        <button form-type='submit' type='primary' class='submit-btn'>生成码字</button>
+        <!-- <button form-type='reset' type='default'>清空</button> -->
+      </view>
+    </form>
+  </view>
+  
+  <!-- <view class="usermotto">
+    <text class="user-motto">{{motto}}</text>
+  </view> -->
 </view>
