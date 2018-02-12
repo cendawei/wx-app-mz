@@ -7,7 +7,7 @@
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
   </view>
-  <view class='section mt100' wx:if="{{isImage}}">
+  <view class='section' wx:if="{{isImage}}">
     <image src="{{imageSrc}}" mode="widthFix" bindtap="previewQRCode"></image>
     <view class='mt50'>
       <button type='primary' class='submit-btn' bindtap='back2index'>返回</button>
@@ -22,10 +22,26 @@
       </view>
     </view> -->
   </view>
-  <view class='section mt100' wx:else>
+  <view class='section mt20' wx:else>
     <form bindsubmit='formSubmit'>
       <view>
         <textarea placeholder='输入文本，可以码字哦！' style='border: 8rpx double grey; padding: 20rpx;' maxlength='200' name='content'></textarea>
+      </view>
+      <view class="mt30">
+        <view class="section__title">二维码有效期</view>
+        <picker range="{{array}}" name="expire" bindchange='selectExpire' class="mt20">
+          <view class="picker">
+            <text>当前选择：{{pickerSelected}}</text>
+            <icon type="success" size="20" style="position:relative; top:3px;"/>
+          </view>
+        </picker>
+      </view>
+      <view class='mt30'>
+        <view class="section__title">选择场景</view>
+        <radio-group name="scene" class='mt20'>
+          <label><radio value="default" checked='true'/>默认</label>
+          <label class='ml20'><radio value="xinnian"/>新年</label>
+        </radio-group>
       </view>
       <view class='mt50'>
         <button form-type='submit' type='primary' class='submit-btn'>生成码字</button>

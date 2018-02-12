@@ -9,7 +9,9 @@ Page({
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     isImage: false,
-    imageSrc: ''
+    imageSrc: '',
+    array: ['永久', '一天', '十天', '一个月', '三个月', '一年'],
+    pickerSelected: ''
   },
   //事件处理函数
   bindViewTap: function() {
@@ -44,6 +46,9 @@ Page({
         }
       })
     }
+    this.setData({
+      pickerSelected: this.data.array[0]
+    })
   },
   getUserInfo: function(e) {
     console.log(e)
@@ -54,17 +59,41 @@ Page({
     })
   },
   formSubmit: function(e) {
-    const text = e.detail.value.content
-    if(!text) {
-      return;
+    let expire = parseInt(e.detail.value.expire) || -1
+    switch(expire) {
+      case 0:
+        expire = -1
+        break
+      case 1:
+        expire = 1
+        break
+      case 2:
+        expire = 10
+        break
+      case 3:
+        expire = 30
+        break
+      case 4:
+        expire = 90
+        break
+      case 5:
+        expire = 365
+        break
+      default:
+        expire = -1
     }
     const data = {
-      text,
-      expire: -1
+      text: e.detail.value.content,
+      scene: e.detail.value.scene,
+      expire
+    }
+    if (!data.text) {
+      return;
     }
     this.setData({
       isImage: true,
-      imageSrc: `http://app.cdroom.top/wx/mz/qrCode/qr?expire=${data['expire']}&text=${data['text']}`
+      imageSrc: `http://app.cdroom.top/wx/mz/qrCode/qr?expire=${data['expire']}&text=${data['text']}&scene=${data['scene']}`,
+      pickerSelected: this.data.array[0]
     })
   },
   previewQRCode() {
@@ -75,6 +104,11 @@ Page({
   back2index() {
     this.setData({
       isImage: false
+    })
+  },
+  selectExpire(e) {
+    this.setData({
+      pickerSelected: this.data.array[e.detail.value]
     })
   }
 })

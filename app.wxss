@@ -11,6 +11,18 @@
 .mt100 {
   margin-top: 100rpx;
 }
+.mt80 {
+  margin-top: 80rpx;
+}
 .mt50 {
   margin-top: 50rpx;
+}
+.mt30 {
+  margin-top: 30rpx;
+}
+.mt20 {
+  margin-top: 20rpx;
+}
+.ml20 {
+  margin-left: 20rpx;
 }
