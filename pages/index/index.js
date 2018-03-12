@@ -83,7 +83,7 @@ Page({
         expire = -1
     }
     const data = {
-      text: e.detail.value.content,
+      text: encodeURIComponent(e.detail.value.content),
       scene: e.detail.value.scene,
       expire
     }
